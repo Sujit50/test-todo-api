@@ -24,4 +24,13 @@ module.exports = {
       todoId: Joi.string().hex().required()
     }
   },
+
+  updateTag: {
+    body: {
+      tag: Joi.string().required(),
+    },
+    params: {
+      todoId: Joi.string().hex().required()
+    }
+  },
 };

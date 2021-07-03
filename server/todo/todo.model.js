@@ -23,6 +23,10 @@ const TodoSchema = new mongoose.Schema({
   archived: {
     type: Boolean,
     default: false
+  },
+  tag: {
+    type: [String],
+    default: []
   }
 });
 

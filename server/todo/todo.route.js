@@ -30,6 +30,14 @@ router.route('/archive/:todoId')
   /** PUT /api/todo/:todoId - Update user */
   .put(validate(paramValidation.updateStatusTodo), todoCtrl.markArchive);
 
+router.route('/tag/add/:todoId')
+  /** PUT /api/todo/:todoId - Update user */
+  .put(validate(paramValidation.updateTag), todoCtrl.addTag);
+
+router.route('/tag/remove/:todoId')
+  /** PUT /api/todo/:todoId - Update user */
+  .put(validate(paramValidation.updateTag), todoCtrl.removeTag);
+
 /** Load user when API with todoId route parameter is hit */
 router.param('todoId', todoCtrl.load);
 

@@ -82,6 +82,35 @@ function markArchive(req, res, next) {
 }
 
 /**
+ * Update existing todo
+ * @property {string} req.body.task
+ * @returns {Todo}
+ */
+function addTag(req, res, next) {
+  const todo = req.todo;
+  const tagSet = [...new Set([...req.todo.tag, req.body.tag.toUpperCase()])];
+  todo.tag = tagSet;
+
+  todo.save()
+    .then(savedTask => res.json(savedTask))
+    .catch(e => next(e));
+}
+
+/**
+ * Update existing todo
+ * @property {string} req.body.task
+ * @returns {Todo}
+ */
+function removeTag(req, res, next) {
+  const todo = req.todo;
+  todo.tag.pull(req.body.tag.toUpperCase());
+
+  todo.save()
+    .then(savedTask => res.json(savedTask))
+    .catch(e => next(e));
+}
+
+/**
  * Get todo list.
  * @property {number} req.query.skip - Number of todo to be skipped.
  * @property {number} req.query.limit - Limit number of todo to be returned.
@@ -114,4 +143,6 @@ module.exports = {
   remove,
   updateStatus,
   markArchive,
+  addTag,
+  removeTag,
 };
