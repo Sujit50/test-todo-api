@@ -19,6 +19,10 @@ const TodoSchema = new mongoose.Schema({
     type: String,
     enum: ['INCOMPLETE', 'COMPLETE'],
     default: 'INCOMPLETE'
+  },
+  archived: {
+    type: Boolean,
+    default: false
   }
 });
 

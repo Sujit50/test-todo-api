@@ -55,9 +55,26 @@ function update(req, res, next) {
 function updateStatus(req, res, next) {
   const todo = req.todo;
   const statusMap = { COMPLETE: 'INCOMPLETE', INCOMPLETE: 'COMPLETE' };
-  const currentStatus = req.todo._doc.status;
+  const currentStatus = req.todo.status;
   const newStatus = statusMap[currentStatus];
   todo.status = newStatus;
+
+  todo.save()
+    .then(savedTask => res.json(savedTask))
+    .catch(e => next(e));
+}
+
+/**
+ * Update existing todo
+ * @property {string} req.body.task
+ * @returns {Todo}
+ */
+function markArchive(req, res, next) {
+  const todo = req.todo;
+  const statusMap = { true: false, false: true };
+  const currentStatus = req.todo.archived;
+  const newStatus = statusMap[currentStatus];
+  todo.archived = newStatus;
 
   todo.save()
     .then(savedTask => res.json(savedTask))
@@ -88,4 +105,13 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-module.exports = { load, get, create, update, list, remove, updateStatus };
+module.exports = {
+  load,
+  get,
+  create,
+  update,
+  list,
+  remove,
+  updateStatus,
+  markArchive,
+};

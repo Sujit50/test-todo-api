@@ -26,6 +26,10 @@ router.route('/complete/:todoId')
   /** PUT /api/todo/:todoId - Update user */
   .put(validate(paramValidation.updateStatusTodo), todoCtrl.updateStatus);
 
+router.route('/archive/:todoId')
+  /** PUT /api/todo/:todoId - Update user */
+  .put(validate(paramValidation.updateStatusTodo), todoCtrl.markArchive);
+
 /** Load user when API with todoId route parameter is hit */
 router.param('todoId', todoCtrl.load);
 
